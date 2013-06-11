@@ -3,6 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/siva"
     android:orientation="vertical" >
 
     <TextView
@@ -114,6 +115,7 @@
         android:layout_below="@+id/st"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="94dp"
-        android:text="Konec" />
+        android:text="Konec"
+        android:onClick="upload"/>
 
 </RelativeLayout>

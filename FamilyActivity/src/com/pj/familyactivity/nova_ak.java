@@ -1,20 +1,38 @@
 package com.pj.familyactivity;
 
-
 import android.app.Activity;
 import android.content.Context;
+
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.PowerManager;
+
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 
-public class nova_ak extends Activity implements SensorEventListener{	
-	private float mLastX, mLastY, mLastZ;
+public class nova_ak extends Activity implements SensorEventListener{
+    SharedPreferences pref;
+    String user;
+    private static String uploadPHP = "http://10.0.2.2:8080/android_connect/dodaj.php";
+    //private static String uploadPHP = "http://164.8.219.49:8080/android_connect/dodaj.php";
+    private ProgressDialog pDialog;
+    private static final String TAG_SUCCESS = "success";
+    JSONParser jParser = new JSONParser();
+    private float mLastX, mLastY, mLastZ;
 	private boolean mInitialized;
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
@@ -24,13 +42,15 @@ public class nova_ak extends Activity implements SensorEventListener{
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.nova_ak);	
-	
-    mInitialized = false;
-	mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-	mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-	mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);		
+	    super.onCreate(savedInstanceState);
+	    setContentView(R.layout.nova_ak);
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        user = pref.getString("username", null);
+
+        mInitialized = false;
+	    mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+	    mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+	    mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 	
 	protected void onResume() {
@@ -85,4 +105,50 @@ public class nova_ak extends Activity implements SensorEventListener{
 			}			
 		}
 	}
+
+    public void upload(View view){
+        new vstavi().execute();
+
+    }
+    class vstavi extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(nova_ak.this);
+            pDialog.setMessage("Obdelujem...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        protected String doInBackground(String... args) {
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("koraki", ""+stevec));
+            params.add(new BasicNameValuePair("user", user));
+
+            JSONObject json = jParser.makeHttpRequest(uploadPHP, "POST", params);
+
+            try {
+
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        protected void onPostExecute(String file_url) {
+
+            pDialog.dismiss();
+        }
+    }
 }

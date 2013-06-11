@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FamilyActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string-array name="podatki">
+        <item >21.4.2013</item>
+        <item >20.4.2013</item>
+        <item >19.4.2013</item>
+        <item >18.4.2013</item>
+        <item >17.4.2013</item>
+        <item >16.4.2013</item>
+        <item >15.4.2013</item>
+        <item >14.4.2013</item>
+        <item >13.4.2013</item>
+        <item >12.4.2013</item>
+        <item >11.4.2013</item>
+        <item >10.4.2013</item>
+        <item >9.4.2013</item>
+        <item >8.4.2013</item>
+        <item >7.4.2013</item>
+        <item >6.4.2013</item>
+    </string-array>
+	<color name="black">#000000</color>
+	<color name="siva">#e7eff0</color>
+</resources>

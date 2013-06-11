@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" 
+    android:background="@color/siva">
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:onClick="druzina"
+        android:background="@drawable/gumb_druz"
+        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/Button02"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Button01"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/gumb_dose"
+        android:visibility="invisible"    />
+
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/gumb_akt"
+        android:onClick="nova"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:background="@drawable/gumb_zgod"
+        android:onClick="zgodovina"
+        android:layout_below="@+id/Button03"
+        android:layout_alignLeft="@+id/Button01"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Prijavljeni ste kot: "
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#0c00ff"
+        android:textColorHint="@color/siva" />
+
+    <TextView
+        android:id="@+id/textViewUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#0c00ff"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView1"/>
+
+</RelativeLayout>
